@@ -4,10 +4,6 @@ import { useRef, useState } from "react";
 import { VideoElement, VideoBottom, VideoButton, VideoCenter, VideoCloseButton, VideoCont, VideoLoading, VideoMain, VideoProgress, VideoProgressBar, VideoTitle, VideoTop, VideoProgressBarPin } from "./VideoStyled";
 
 export default function Video(props: any) {
-    /* video name */
-    let srcSplited = props.src.split("/")
-    const fileName = srcSplited[srcSplited.length - 1];
-
     /* states */
     const [buttonPlayIcon, setButtonPlayIcon] = useState(faPlay)
     const [progressPercent, setProgressPercent] = useState(0)
@@ -59,6 +55,10 @@ export default function Video(props: any) {
     if (!props.src) {
         return <></>
     }
+
+    /* video name */
+    let srcSplited = props.src.split("/")
+    const fileName = srcSplited[srcSplited.length - 1];
 
     return (
         <VideoCont ref={main_element}>
