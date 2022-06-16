@@ -1,7 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlay, faVolumeUp, faExpand, faAngleLeft, faPause } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
-import { VideoElement, VideoBottom, VideoButton, VideoCenter, VideoCloseButton, VideoCont, VideoLoading, VideoMain, VideoProgress, VideoProgressBar, VideoTitle, VideoTop, VideoProgressBarPin } from "./VideoStyled";
+import { VideoElement, VideoBottom, VideoButton, VideoCenter, VideoCloseButton, VideoCont, VideoLoading, VideoMain, VideoProgress, VideoProgressBar, VideoTitle, VideoTop, VideoProgressBarPin, VideoVolume } from "./VideoStyled";
+
 
 export default function Video(props: any) {
     /* states */
@@ -66,7 +68,9 @@ export default function Video(props: any) {
             <VideoMain>
                 <VideoTop>
                     <VideoTitle>{fileName}</VideoTitle>
-                    <VideoCloseButton style={{ display: (props.backUrl ? '' : 'none') }} href={props.backUrl}><FontAwesomeIcon icon={faAngleLeft} /></VideoCloseButton>
+                    {props.backUrl &&
+                        <VideoCloseButton style={{ display: (props.backUrl ? '' : 'none') }} href={props.backUrl}><FontAwesomeIcon icon={faAngleLeft} /></VideoCloseButton>
+                    }
                 </VideoTop>
                 <VideoCenter onClick={togglePauseVideo}>
                     <VideoLoading style={{ display: (loading ? '' : 'none') }} />
@@ -74,7 +78,7 @@ export default function Video(props: any) {
                 <VideoBottom>
                     <VideoButton onClick={togglePauseVideo}><FontAwesomeIcon icon={buttonPlayIcon} /></VideoButton>
                     <VideoProgress onClick={(e) => updateVideoTime(e)} ref={progress_bar}><VideoProgressBar style={{ width: `${progressPercent}%` }} /><VideoProgressBarPin /></VideoProgress>
-                    <VideoButton><FontAwesomeIcon icon={faVolumeUp} /></VideoButton>
+                    <VideoVolume><div className="volume"><div className="volume_percent"></div></div><VideoButton><FontAwesomeIcon icon={faVolumeUp} /></VideoButton></VideoVolume>
                     <VideoButton onClick={toggleFullScreen}><FontAwesomeIcon icon={faExpand} /></VideoButton>
                 </VideoBottom>
             </VideoMain>

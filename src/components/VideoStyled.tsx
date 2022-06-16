@@ -88,7 +88,6 @@ export const VideoButton = styled.button`
     margin: 0 5px;
     font-size: 20px;
     text-align: center;
-    width: 28px;
     &:hover {
         color: lightgray;
         transform: translateY(-1px);
@@ -133,4 +132,36 @@ export const VideoProgressBarPin = styled.div`
     margin: auto 0;
     position: relative;
     border-radius: 50%;
+`
+
+export const VideoVolume = styled.div`
+    border-radius: 10px;
+    overflow: show;
+    display: flex;
+    flex-direction: column;
+    transition: 320ms;
+    & .volume {
+        height: 100%;
+        width: 10px;
+        background-color: #999;
+        margin: 0 auto;
+        border-radius: 15px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    & .volume .volume_percent {
+        width: 100%;
+        height: 25%;
+        margin-top: auto;
+        background-color: white;
+    }
+    &:hover {
+        background-color: #444;
+        padding: 10px 0 5px 0;
+        margin-top: -105px;
+    }
+    & button {
+        margin: 0 !important; 
+    }
 `
