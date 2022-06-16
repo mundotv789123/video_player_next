@@ -45,7 +45,7 @@ export const VideoTop = styled.div`
     user-select: none;
 `
 
-export const VideoTitle = styled.h1`
+export const VideoTitle = styled.h2`
     text-align: center;
     margin: 0;
 `
@@ -155,6 +155,7 @@ export const VideoVolume = styled.div`
         height: 25%;
         margin-top: auto;
         background-color: white;
+        transition: all 0.2s ease 0s;
     }
     &:hover {
         background-color: #444;

@@ -68,14 +68,14 @@ export default function Video(props: any) {
 
     /* video name */
     let srcSplited = props.src.split("/")
-    const fileName = srcSplited[srcSplited.length - 1];
+    const fileName = decodeURI(srcSplited[srcSplited.length - 1]);
 
     return (
         <VideoCont ref={main_element}>
             <VideoElement onPlay={togglePauseButton} onPause={togglePauseButton} onTimeUpdate={updateProgress} onCanPlay={() => setLoading(false)} src={props.src} controls={false} ref={video_element}></VideoElement>
             <VideoMain>
                 <VideoTop>
-                    <VideoTitle>{fileName}</VideoTitle>
+                    <VideoTitle>{fileName.substring(0, 32) + (fileName.length > 32 ? '...' : '')}</VideoTitle>
                     {props.backUrl &&
                         <VideoCloseButton style={{ display: (props.backUrl ? '' : 'none') }} href={props.backUrl}><FontAwesomeIcon icon={faAngleLeft} /></VideoCloseButton>
                     }
