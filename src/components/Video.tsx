@@ -1,4 +1,3 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlay, faVolumeUp, faExpand, faAngleLeft, faPause } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
@@ -15,6 +14,8 @@ export default function Video(props: any) {
     const main_element = useRef(null);
     const video_element = useRef(null);
     const progress_bar = useRef(null);
+    const volume = useRef(null);
+    const volume_percent = useRef(null);
 
     /* functions */
     function togglePauseVideo() {
@@ -54,6 +55,13 @@ export default function Video(props: any) {
         setProgressPercent(percent);
     }
 
+    function updateVolume(event) {
+        let rect = volume.current.getBoundingClientRect();
+        let value = ((rect.bottom - event.clientY) * 1.0 / (rect.bottom - rect.top));
+        video_element.current.volume = value;
+        volume_percent.current.style.height = (value * 100) + '%';
+    }
+
     if (!props.src) {
         return <></>
     }
@@ -78,7 +86,7 @@ export default function Video(props: any) {
                 <VideoBottom>
                     <VideoButton onClick={togglePauseVideo}><FontAwesomeIcon icon={buttonPlayIcon} /></VideoButton>
                     <VideoProgress onClick={(e) => updateVideoTime(e)} ref={progress_bar}><VideoProgressBar style={{ width: `${progressPercent}%` }} /><VideoProgressBarPin /></VideoProgress>
-                    <VideoVolume><div className="volume"><div className="volume_percent"></div></div><VideoButton><FontAwesomeIcon icon={faVolumeUp} /></VideoButton></VideoVolume>
+                    <VideoVolume><div className="volume" ref={volume} onClick={(e) => { updateVolume(e) }}><div className="volume_percent" ref={volume_percent}></div></div><VideoButton><FontAwesomeIcon icon={faVolumeUp} /></VideoButton></VideoVolume>
                     <VideoButton onClick={toggleFullScreen}><FontAwesomeIcon icon={faExpand} /></VideoButton>
                 </VideoBottom>
             </VideoMain>
